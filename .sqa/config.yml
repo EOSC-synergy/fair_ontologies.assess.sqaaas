@@ -1,0 +1,56 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.11
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/oeg-upm/fair_ontologies:
+      branch: main
+      repo: https://github.com/oeg-upm/fair_ontologies
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/oeg-upm/fair_ontologies git:
+        commands:
+        - /usr/bin/env sh .sqa/script.gummy-ruby-buffalo.sh
+        container: qc.acc_tacky-saffron-mayfly
+  QC.Doc:
+    repos:
+      github.com/oeg-upm/fair_ontologies find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.stuffy-alizarin-falcon.sh
+        container: qc.doc_hazy-mustard-whippet
+      github.com/oeg-upm/fair_ontologies git:
+        commands:
+        - /usr/bin/env sh .sqa/script.hazy-flax-butterfly.sh
+        container: qc.doc_trippy-myrtle-shark
+      github.com/oeg-upm/fair_ontologies markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.randy-dandelion-otter.sh
+        container: qc.doc_fuzzy-cyan-impala
+  QC.Lic:
+    repos:
+      github.com/oeg-upm/fair_ontologies licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.wimpy-thistle-earwig.sh
+        container: qc.lic_stuffy-sepia-gecko
+  QC.Sty:
+    repos:
+      github.com/oeg-upm/fair_ontologies checkstyle:
+        commands:
+        - /usr/bin/env sh .sqa/script.stealthy-persimmon-dingo.sh
+        container: qc.sty_smelly-purple-chin
+      github.com/oeg-upm/fair_ontologies jsonlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.pokey-rose-yak.sh
+        container: qc.sty_flimsy-eggplant-nightingale
+  QC.Ver:
+    repos:
+      github.com/oeg-upm/fair_ontologies get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.tacky-cinnabar-centipede.sh
+        container: qc.ver_homely-cinnabar-giraffe
+timeout: 5400
